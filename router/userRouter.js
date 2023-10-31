@@ -3,7 +3,7 @@ const authMiddleware = require('../middleware/auth')
 const userRouter = require('express').Router();
 
 
-userRouter.post("/home",authMiddleware, home);
+userRouter.post("/",authMiddleware, home);
 
 userRouter.post("/register", register);
 

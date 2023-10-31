@@ -42,8 +42,12 @@ const login = (req, res) => {
   console.log(details);
 
     if (details) {
-        const validate = bcrypt.compareSync(details.password,loginData.password) //true or false
+        const validate = bcrypt.compareSync(loginData.password,details.password)
+        console.log(validate); //true or false
         if(validate){
+          const token = jwt.sign({useremail:loginData.email}, secret_key,{expiresIn:"360000"})
+          console.log(token);
+          res.send({msg:'user login successfully',token:token})
             return res.send({msg:"user logged in successfully"})
         }
         else{
@@ -51,7 +55,7 @@ const login = (req, res) => {
         }
     //   return res.send({ msg: "user logged in" });
     } else {
-      return res.send({ msg: "email is wrong" });
+      return res.send({ msg: "User not registered" });
     }
 };
 
